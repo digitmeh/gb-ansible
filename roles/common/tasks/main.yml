@@ -1,0 +1,21 @@
+- name: Install UFW
+  apt:
+    name: ufw
+    state: present
+
+- name: Enable UFW
+  ufw:
+    state: enabled
+
+- name: Allow HTTP traffic
+  ufw:
+    rule: allow
+    port: 80
+    proto: tcp
+
+- name: Allow HTTPS traffic
+  ufw:
+    rule: allow
+    port: 443
+    proto: tcp
+

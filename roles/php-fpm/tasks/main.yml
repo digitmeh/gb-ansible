@@ -1,0 +1,32 @@
+---
+- name: Add repository for PHP
+  apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+
+- name: Update package lists
+  apt:
+    update_cache: yes
+
+- name: Install PHP-FPM
+  apt:
+    name: php-fpm
+    state: latest
+
+- name: Install additional PHP modules
+  apt:
+    name: 
+    - php-mysql
+    - php-curl
+    - php-gd
+    - php-mbstring
+    - php-xml
+    - php-xmlrpc
+    state: present
+
+- name: Start PHP-FPM
+  service:
+    name: php-fpm
+    state: started
+    enabled: true
+

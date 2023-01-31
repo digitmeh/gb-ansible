@@ -1,0 +1,27 @@
+- name: Download WordPress
+  get_url:
+    url: https://wordpress.org/latest.tar.gz
+    dest: /var/www/html
+
+- name: Extract WordPress
+  unarchive:
+    src: /var/www/html/latest.tar.gz
+    dest: /var/www/html
+    remote_src: true
+
+#- name: Move WordPress to document root
+#  command: mv /var/www/html/wordpress/* /var/www/html/
+
+- name: Set the correct permissions on Wordpress directories
+  command: find /var/www/wordpress/ -type d -exec chmod 750 {} \;
+
+- name: Set the correct permissions for Wordpress files
+  command: find /var/www/wordpress/ -type f -exec chmod 640 {} \;
+
+- name: Update permissions for WordPress files
+  file:
+    path: /var/www/html
+    owner: www-data
+    group: www-data
+    mode: 'u=rwX,g=rwX,o=rX'
+    recurse: true
